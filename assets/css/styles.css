@@ -1,3 +1,7 @@
+main {
+    min-width: 100%;
+}
+
 .gradient-hero {
   background: linear-gradient(to right, rgb(48, 0, 138), rgb(101, 1, 141));
   color: white;
