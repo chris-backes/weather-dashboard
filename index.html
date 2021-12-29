@@ -21,7 +21,7 @@
 
     <!--Column to left with search box ("Search for city" and input) and then previous citites searched populate under as buttons-->
     <main class="row container">
-      <div id="search-bar" class="col-2">
+      <div id="search-bar" class="col-3">
         <h2>Search for a City:</h2>
         <form>
           <input
@@ -39,10 +39,39 @@
           />
         </form>
         <hr class="hr-element" />
+        <!-- <button id="austin" class="col-12 btn btn-secondary my-1">
+          Austin
+        </button>
+        <button id="chicago" class="col-12 btn btn-secondary my-1">
+          Chicago
+        </button>
+        <button id="new-york" class="col-12 btn btn-secondary my-1">
+          New York
+        </button>
+        <button id="orlando" class="col-12 btn btn-secondary my-1">
+          Orlando
+        </button>
+        <button id="san-francisco" class="col-12 btn btn-secondary my-1">
+          San Francisco
+        </button>
+        <button id="seattle" class="col-12 btn btn-secondary my-1">
+          Seattle
+        </button>
+        <button id="denver" class="col-12 btn btn-secondary my-1">
+          Denver
+        </button>
+        <button id="atlanta" class="col-12 btn btn-secondary my-1">
+          Atlanta
+        </button> -->
       </div>
-      <div id="display" class="col-10">
+      <div id="display" class="col-9">
         <div id="city-info" class="col-12 border border-secondary m-2">
-          <h2>City Here</h2>
+          <h2 id="city-here"></h2>
+          <img id="weather-icon" />
+          <p>Temp: <span id="temp"></span> °F</p>
+          <p>Wind: <span id="wind"></span> MPH</p>
+          <p>Humidity: <span id="humidity"></span> %</p>
+          <p>UV Index: <span id="uvi"></span></p>
         </div>
         <div id="forecast" class="col-12 my-2">
           <h3>Five Day Forecast</h3>

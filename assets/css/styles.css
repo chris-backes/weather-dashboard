@@ -1,5 +1,5 @@
 main {
-    min-width: 100%;
+  min-width: 100%;
 }
 
 .gradient-hero {
@@ -10,4 +10,29 @@ main {
 .hr-element {
   border-top: 3px solid grey;
   border-radius: 2px;
+}
+
+.uvi {
+  color: white;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+.red {
+  background-color: red;
+}
+.orange {
+  background-color: orange;
+}
+.yellow {
+  background-color: yellow;
+}
+.green {
+  background-color: green;
+}
+
+#city-here {
+  display: inline;
+}
+#weather-icon {
+  width: 3em;
 }
