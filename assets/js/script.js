@@ -39,7 +39,7 @@ function getUviAndForecast(lat, lon) {
     lat +
     "&lon=" +
     lon +
-    "&appid=17669d7988f848c5dcc4c6b27521896b";
+    "&appid=17669d7988f848c5dcc4c6b27521896b&units=imperial";
   console.log(apiUrlTwo);
   fetch(apiUrlTwo)
     .then(function (response) {
@@ -57,7 +57,7 @@ function getUviAndForecast(lat, lon) {
           } else {
             $("#uvi").addClass("red");
           }
-        styleForecast(data)
+          styleForecast(data);
         });
       } else {
         console.log("This didn't work");
@@ -107,7 +107,19 @@ function localStoring(city) {
 }
 
 function styleForecast(data) {
-  
+  for (let i = 1; i <= 5; i++) {
+    let dateDT = data.daily[i].dt * 1000;
+    $("#date-" + i).text(new Date(dateDT).toLocaleDateString());
+    $("#weather-icon-" + i).attr(
+      "src",
+      "http://openweathermap.org/img/wn/" +
+        data.daily[i].weather[0].icon +
+        "@2x.png"
+    );
+    $("#temp-" + i).text(data.daily[i].temp.day);
+    $("#wind-" + i).text(data.daily[i].wind_speed);
+    $("#humidity-" + i).text(data.daily[i].humidity);
+  }
 }
 
 function containerFunction() {
@@ -119,12 +131,12 @@ function grabStorage() {
   let searchHistory = JSON.parse(localStorage.getItem("search-history"));
   for (let i = 0; i < searchHistory.length; i++) {
     $("#search-bar").append(
-      "<button id='search-history' class='col-12 btn btn-secondary my-1'>" +
+      "<button class='col-12 btn btn-secondary my-1'>" +
         searchHistory[i] +
         "</button>"
     );
   }
-  $("#search-history").on("click", function () {
+  $(".btn-secondary").on("click", function () {
     getWeather($(this).text());
   });
 }

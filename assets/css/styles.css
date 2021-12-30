@@ -33,6 +33,7 @@ main {
 #city-here {
   display: inline;
 }
-#weather-icon {
+
+.weather-icon {
   width: 3em;
 }
