@@ -21,7 +21,8 @@ function getWeather(city) {
               data.weather[0].icon +
               "@2x.png"
           );
-          getUvi(data.coord.lat, data.coord.lon);
+          getUviAndForecast(data.coord.lat, data.coord.lon);
+          localStoring(city);
         });
       } else {
         alert("Error: City not found");
@@ -30,27 +31,9 @@ function getWeather(city) {
     .catch(function (error) {
       alert("Unable to connect to the Weather Service");
     });
-  let apiUrlThree =
-    "https://api.openweathermap.org/data/2.5/forecast?q=" +
-    city +
-    "&appid=17669d7988f848c5dcc4c6b27521896b";
-  fetch(apiUrlThree)
-    .then(function (response) {
-      if (response.ok) {
-        response.json().then(function (data) {
-          console.log("This works");
-          // displayForecast();
-        });
-      } else {
-        console.log("This didn't work");
-      }
-    })
-    .catch(function (error) {
-      console.log("This didn't work");
-    });
 }
 
-function getUvi(lat, lon) {
+function getUviAndForecast(lat, lon) {
   let apiUrlTwo =
     "https://api.openweathermap.org/data/2.5/onecall?lat=" +
     lat +
@@ -74,6 +57,7 @@ function getUvi(lat, lon) {
           } else {
             $("#uvi").addClass("red");
           }
+        styleForecast(data)
         });
       } else {
         console.log("This didn't work");
@@ -93,13 +77,58 @@ function displayWeather(weather, citySearched) {
   presentHumidityEl.textContent = weather.main.humidity;
 }
 
+function localStoring(city) {
+  let previousSearch = JSON.parse(localStorage.getItem("search-history"));
+  let searchHistory = [];
+  //loads search history, if any
+  if (previousSearch) {
+    for (let i = 0; i < previousSearch.length; i++) {
+      searchHistory.push(previousSearch[i]);
+    }
+  }
+  //capitalizes each word in the search if they are not already
+  let newTerm = city.trim();
+  let newTermArray = newTerm.split(" ");
+  if (newTerm.includes(" ")) {
+    for (let i = 0; i < newTermArray.length; i++) {
+      newTermArray[i] =
+        newTermArray[i][0].toUpperCase() + newTermArray[i].substr(1);
+    }
+    newTerm = newTermArray.join(" ");
+  }
+  //checks to see if the search term is already in the array, then adds it to array if not in there
+  if (!searchHistory.includes(newTerm)) {
+    searchHistory.unshift(newTerm);
+  }
+  if (searchHistory.length > 8) {
+    searchHistory = searchHistory.pop();
+  }
+  localStorage.setItem("search-history", JSON.stringify(searchHistory));
+}
+
+function styleForecast(data) {
+  
+}
+
 function containerFunction() {
   let cityName = document.querySelector("#city-name").value.trim();
   getWeather(cityName);
 }
 
+function grabStorage() {
+  let searchHistory = JSON.parse(localStorage.getItem("search-history"));
+  for (let i = 0; i < searchHistory.length; i++) {
+    $("#search-bar").append(
+      "<button id='search-history' class='col-12 btn btn-secondary my-1'>" +
+        searchHistory[i] +
+        "</button>"
+    );
+  }
+  $("#search-history").on("click", function () {
+    getWeather($(this).text());
+  });
+}
+
 subButtonEl.addEventListener("click", containerFunction);
 
-// $(document).ready(function () {
-//   $("#austin").click(getWeather($(this).text()));
-// });
+$(document).ready(grabStorage);
