@@ -3,7 +3,6 @@ let weatherCityEl = document.querySelector("#city-here");
 let presentTempEl = document.querySelector("#temp");
 let presentWindEl = document.querySelector("#wind");
 let presentHumidityEl = document.querySelector("#humidity");
-let presentUviEl = $("#uvi");
 
 function getWeather(city) {
   let apiUrl =
@@ -88,8 +87,8 @@ function localStoring(city) {
   }
   //capitalizes each word in the search if they are not already
   let newTerm = city.trim();
-  let newTermArray = newTerm.split(" ");
   if (newTerm.includes(" ")) {
+    let newTermArray = newTerm.split(" ");
     for (let i = 0; i < newTermArray.length; i++) {
       newTermArray[i] =
         newTermArray[i][0].toUpperCase() + newTermArray[i].substr(1);
@@ -101,7 +100,7 @@ function localStoring(city) {
     searchHistory.unshift(newTerm);
   }
   if (searchHistory.length > 8) {
-    searchHistory = searchHistory.pop();
+    searchHistory.pop();
   }
   localStorage.setItem("search-history", JSON.stringify(searchHistory));
 }
@@ -122,23 +121,26 @@ function styleForecast(data) {
   }
 }
 
+function grabStorage() {
+  let searchHistory = JSON.parse(localStorage.getItem("search-history"));
+  console.log(searchHistory);
+  if (searchHistory) {
+    for (let i = 0; i < searchHistory.length; i++) {
+      $("#search-bar").append(
+        "<button class='col-12 btn btn-secondary my-1'>" +
+          searchHistory[i] +
+          "</button>"
+      );
+    }
+    $(".btn-secondary").on("click", function () {
+      getWeather($(this).text());
+    });
+  }
+}
+
 function containerFunction() {
   let cityName = document.querySelector("#city-name").value.trim();
   getWeather(cityName);
-}
-
-function grabStorage() {
-  let searchHistory = JSON.parse(localStorage.getItem("search-history"));
-  for (let i = 0; i < searchHistory.length; i++) {
-    $("#search-bar").append(
-      "<button class='col-12 btn btn-secondary my-1'>" +
-        searchHistory[i] +
-        "</button>"
-    );
-  }
-  $(".btn-secondary").on("click", function () {
-    getWeather($(this).text());
-  });
 }
 
 subButtonEl.addEventListener("click", containerFunction);
