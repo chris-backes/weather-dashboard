@@ -114,7 +114,7 @@ function localStoring(city) {
     }
     newTerm = newTermArray.join(" ");
   } else {
-    searchTerm = searchTerm[0].toUpperCase() + searchTerm.substr(1);
+    newTerm = newTerm[0].toUpperCase() + newTerm.substr(1);
   }
   //checks to see if the search term is already in the array, then adds it to array if not in there
   if (!searchHistory.includes(newTerm)) {
