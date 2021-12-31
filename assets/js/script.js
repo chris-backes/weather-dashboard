@@ -137,13 +137,13 @@ function styleForecast(data) {
     $("#date-" + i).text(new Date(dateConversion).toLocaleDateString());
     $("#weather-icon-" + i).attr(
       "src",
-      "http://openweathermap.org/img/wn/" +
+      "https://openweathermap.org/img/wn/" +
         data.daily[i].weather[0].icon +
         "@2x.png"
     );
     $("#weather-icon-" + i).attr(
       "src",
-      "http://openweathermap.org/img/wn/" +
+      "https://openweathermap.org/img/wn/" +
         data.daily[i].weather[0].icon +
         "@2x.png"
     );
