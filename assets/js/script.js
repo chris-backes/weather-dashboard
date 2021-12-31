@@ -60,18 +60,37 @@ function getUviAndForecast(lat, lon) {
 }
 
 function displayWeather(data, citySearched) {
+  //capitalizes the search term
+  let searchTerm = citySearched.trim();
+  if (searchTerm.includes(" ")) {
+    let searchTermArray = searchTerm.split(" ");
+    for (let i = 0; i < searchTermArray.length; i++) {
+      searchTermArray[i] =
+        searchTermArray[i][0].toUpperCase() + searchTermArray[i].substr(1);
+    }
+    searchTerm = searchTermArray.join(" ");
+  } else {
+    searchTerm = searchTerm[0].toUpperCase() + searchTerm.substr(1);
+  }
   $("#city-here").text(
-    citySearched + " (" + new Date().toLocaleDateString() + ")"
+    searchTerm + " (" + new Date().toLocaleDateString() + ")"
   );
   $("#temp").text(data.main.temp);
   $("#wind").text(data.wind.speed);
   $("#humidity").text(data.main.humidity);
+  //grabs the icon hosted on the webpage
   $("#weather-icon").attr(
     "src",
     "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
   );
+  //alt attribute for the image
   $("#weather-icon").attr(
     "alt",
+    data.weather[0].main + ", " + data.weather[0].description
+  );
+  //title text appears when hovered over
+  $("#weather-icon").attr(
+    "title",
     data.weather[0].main + ", " + data.weather[0].description
   );
 }
@@ -94,21 +113,28 @@ function localStoring(city) {
         newTermArray[i][0].toUpperCase() + newTermArray[i].substr(1);
     }
     newTerm = newTermArray.join(" ");
+  } else {
+    searchTerm = searchTerm[0].toUpperCase() + searchTerm.substr(1);
   }
   //checks to see if the search term is already in the array, then adds it to array if not in there
   if (!searchHistory.includes(newTerm)) {
     searchHistory.unshift(newTerm);
   }
+  //search history maxes out at 8 terms
   if (searchHistory.length > 8) {
     searchHistory.pop();
   }
+  //stores search history
   localStorage.setItem("search-history", JSON.stringify(searchHistory));
 }
 
 function styleForecast(data) {
+  //loops through daily info from api, starting at second item (first item is for current day)
   for (let i = 1; i <= 5; i++) {
-    let dateDT = data.daily[i].dt * 1000;
-    $("#date-" + i).text(new Date(dateDT).toLocaleDateString());
+    //converting the dt from api to milliseconds
+    let dateConversion = data.daily[i].dt * 1000;
+    //uses the dt to display the date of the inforation, everything below is similar to the displayWeather function
+    $("#date-" + i).text(new Date(dateConversion).toLocaleDateString());
     $("#weather-icon-" + i).attr(
       "src",
       "http://openweathermap.org/img/wn/" +
@@ -127,6 +153,12 @@ function styleForecast(data) {
         ", " +
         data.daily[i].weather[0].description
     );
+    $("#weather-icon-" + i).attr(
+      "title",
+      data.daily[i].weather[0].main +
+        ", " +
+        data.daily[i].weather[0].description
+    );
     $("#temp-" + i).text(data.daily[i].temp.day);
     $("#wind-" + i).text(data.daily[i].wind_speed);
     $("#humidity-" + i).text(data.daily[i].humidity);
@@ -134,6 +166,7 @@ function styleForecast(data) {
 }
 
 function grabStorage() {
+  //pulls info from lcoal storage. that info is then displayed below the search bar
   let searchHistory = JSON.parse(localStorage.getItem("search-history"));
   if (searchHistory) {
     for (let i = 0; i < searchHistory.length; i++) {
@@ -143,17 +176,18 @@ function grabStorage() {
           "</button>"
       );
     }
+    //even listerner is added to each button that initiates get weather
     $(".btn-secondary").on("click", function () {
       getWeather($(this).text());
     });
   }
 }
-
+//search button initiates this function rather than getWeather so that the input box can be passed in when running a search, and the text of the other buttons are passed when clicking them
 function containerFunction() {
   let cityName = document.querySelector("#city-name").value.trim();
   getWeather(cityName);
 }
-
+//event listener for search button
 $("#sub-btn").on("click", containerFunction);
-
+//adds the buttons
 $(document).ready(grabStorage);

@@ -20,13 +20,3 @@ THEN I am presented with a 5-day forecast that displays the date, an icon repres
 WHEN I click on a city in the search history
 THEN I am again presented with current and future conditions for that city
 ```
-
-Grading Requirements
-This challenge is graded based on the following criteria:
-
-Technical Acceptance Criteria: 40%
-Satisfies all of the above acceptance criteria plus the following:
-
-Uses the OpenWeather API to retrieve weather data
-
-Uses localStorage to store persistent data
