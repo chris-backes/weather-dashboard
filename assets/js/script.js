@@ -121,6 +121,9 @@ function localStoring(city) {
   }
   //stores search history
   localStorage.setItem("search-history", JSON.stringify(searchHistory));
+  //updates search history
+  $(".btn-secondary").remove();
+  grabStorage();
 }
 
 function styleForecast(data) {
@@ -174,7 +177,7 @@ function styleForecast(data) {
 }
 
 function grabStorage() {
-  //pulls info from lcoal storage. that info is then displayed below the search bar
+  //pulls info from local storage. that info is then displayed below the search bar
   let searchHistory = JSON.parse(localStorage.getItem("search-history"));
   if (searchHistory) {
     for (let i = 0; i < searchHistory.length; i++) {

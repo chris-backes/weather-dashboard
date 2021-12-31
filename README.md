@@ -65,9 +65,9 @@ There are three broad functions performed on this web app: accessing local stora
 
 ##### Local Storage
 
-Local Sotrage is accessed in two instances. In the first, the applicaiton grabs stored data, and displays tht data in the buttons below the search bar to pull up recent results.
+Local Storage is accessed in two instances. In the first, the applicaiton grabs stored data to bedisplayed in the buttons below the search bar to pull up recent results.
 
-In the second instance, any time a search is performed, the applciaiton accesses local storage and adds the item if the item is not already there. A maximum of 8 items is stored.
+In the second instance, any time a search is performed, the application accesses local storage and adds the item if the item is not already there. A maximum of 8 items is stored.
 
 ##### Fetch requests
 
@@ -77,4 +77,8 @@ In the second instance, we grabs the UV Index, and the information for each of t
 
 #####  Display
 
-Once the information is accessed, the information within the API is accessed and displayed dynamically. Alt text and title text for each of teh images are also added.
+There are two main compents of the display: one displaying the information from the API, and the other displaying the information from local storage.
+
+Once the API information is accessed, the information within the API is accessed and displayed dynamically. Alt text and title text for each of the images are also added.
+
+The information from local storage is displayed both at the beginning and whenever it gets updated.
