@@ -1,10 +1,12 @@
+let key = config.MY_API_KEY;
+
 function getWeather(city) {
   //API Key is stored on a file not tracked to protect privacy
   let apiUrl =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&appid=" +
-    apiKey +
+    key +
     "&units=imperial";
   fetch(apiUrl)
     .then(function (response) {
@@ -33,7 +35,7 @@ function getUviAndForecast(lat, lon) {
     "&lon=" +
     lon +
     "&appid=" +
-    apiKey +
+    key +
     "&units=imperial";
   fetch(apiUrlTwo)
     .then(function (response) {
