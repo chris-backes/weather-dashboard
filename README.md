@@ -53,15 +53,7 @@ The CSS used is a combination of bootstrap and local style sheet. The ilocal ele
 
 ### JS
 
-In addition to JQuery, there are two local style sheets.
-
-#### config.js
-
-Stores the API key and is not tracks by git
-
-#### script.js
-
-There are three broad functions performed on this web app: accessing local storage, fetching API data, and displaing the API data on the application
+In addition to JQuery, there is a local script which performs three broad functions on this web app: accessing local storage, fetching API data, and displaing the API data on the application
 
 ##### Local Storage
 
