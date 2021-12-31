@@ -40,18 +40,6 @@ function getUviAndForecast(lat, lon) {
       if (response.ok) {
         //styles the background of the UV Index based on the severity
         response.json().then(function (data) {
-          $("#uvi").removeClass();
-          $("#uvi").addClass("uvi");
-          $("#uvi").text(data.current.uvi);
-          if (data.current.uvi <= 2) {
-            $("#uvi").addClass("green");
-          } else if (data.current.uvi <= 5) {
-            $("#uvi").addClass("yellow");
-          } else if (data.current.uvi <= 7) {
-            $("#uvi").addClass("orange");
-          } else {
-            $("#uvi").addClass("red");
-          }
           styleForecast(data);
         });
       } else {
@@ -136,6 +124,19 @@ function localStoring(city) {
 }
 
 function styleForecast(data) {
+  // adds UV Index and styles background
+  $("#uvi").removeClass();
+  $("#uvi").addClass("uvi");
+  $("#uvi").text(data.current.uvi);
+  if (data.current.uvi <= 2) {
+    $("#uvi").addClass("green");
+  } else if (data.current.uvi <= 5) {
+    $("#uvi").addClass("yellow");
+  } else if (data.current.uvi <= 7) {
+    $("#uvi").addClass("orange");
+  } else {
+    $("#uvi").addClass("red");
+  }
   //loops through daily info from api, starting at second item (first item is for current day)
   for (let i = 1; i <= 5; i++) {
     //converting the dt from api to milliseconds
