@@ -50,12 +50,12 @@ function getUviAndForecast(lat, lon) {
           styleForecast(data);
         });
       } else {
-        console.log("This didn't work");
+        alert("Error: Longitude and Latitude could not be found, some data is not available.");
       }
     })
 
     .catch(function (error) {
-      console.log("This didn't work");
+      alert("Error: Unable to connect with Weather Service's secondary API");
     });
 }
 
@@ -133,7 +133,7 @@ function styleForecast(data) {
   for (let i = 1; i <= 5; i++) {
     //converting the dt from api to milliseconds
     let dateConversion = data.daily[i].dt * 1000;
-    //uses the dt to display the date of the inforation, everything below is similar to the displayWeather function
+    //uses the dt to display the date of the information, everything below is similar to the displayWeather function
     $("#date-" + i).text(new Date(dateConversion).toLocaleDateString());
     $("#weather-icon-" + i).attr(
       "src",
@@ -176,7 +176,7 @@ function grabStorage() {
           "</button>"
       );
     }
-    //even listerner is added to each button that initiates get weather
+    //event listener is added to each button that initiates get weather
     $(".btn-secondary").on("click", function () {
       getWeather($(this).text());
     });
