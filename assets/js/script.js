@@ -1,8 +1,11 @@
 function getWeather(city) {
+  //API Key is stored on a file not tracked to protect privacy
   let apiUrl =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
-    "&appid=17669d7988f848c5dcc4c6b27521896b&units=imperial";
+    "&appid=" +
+    apiKey +
+    "&units=imperial";
   fetch(apiUrl)
     .then(function (response) {
       if (response.ok) {
@@ -29,7 +32,9 @@ function getUviAndForecast(lat, lon) {
     lat +
     "&lon=" +
     lon +
-    "&appid=17669d7988f848c5dcc4c6b27521896b&units=imperial";
+    "&appid=" +
+    apiKey +
+    "&units=imperial";
   fetch(apiUrlTwo)
     .then(function (response) {
       if (response.ok) {
@@ -50,7 +55,9 @@ function getUviAndForecast(lat, lon) {
           styleForecast(data);
         });
       } else {
-        alert("Error: Longitude and Latitude could not be found, some data is not available.");
+        alert(
+          "Error: Longitude and Latitude could not be found, some data is not available."
+        );
       }
     })
 
